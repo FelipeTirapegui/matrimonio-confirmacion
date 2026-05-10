@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Camila & Felipe - Confirma tu asistencia a nuestro matrimonio">
+    <meta name="theme-color" content="#E8DCC8">
+    <title>Camila & Felipe - 17 de Julio de 2026</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Partículas de fondo dinámicas -->
+    <div class="particles-container" id="particlesContainer"></div>
+
+    <!-- Audio de fondo -->
+    <audio id="bgMusic" loop>
+        <source src="assets/music/background-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Botón mute/unmute -->
+    <button class="audio-toggle" id="audioToggle" title="Activar/desactivar música">
+        <span class="audio-icon">🔊</span>
+    </button>
+
+    <!-- Indicador de modo oscuro -->
+    <div class="mode-indicator" id="modeIndicator"></div>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="heroSection">
+        <!-- Video de fondo -->
+        <div class="hero-background">
+            <video autoplay muted loop playsinline class="hero-video">
+                <source src="assets/video/invitacion.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
+
+        <div class="hero-content fade-in-up">
+            <div class="names-container">
+                <h1 class="main-names">Camila <span class="ampersand">&</span> Felipe</h1>
+                <p class="romantic-phrase">Una nueva historia comienza</p>
+            </div>
+
+            <div class="date-badge">
+                <span class="date-text">17 de Julio de 2026</span>
+            </div>
+
+            <!-- Countdown elegante -->
+            <div class="countdown-container">
+                <div class="countdown-label">Faltan para la boda</div>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">0</span>
+                        <span class="countdown-label">Días</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">0</span>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">0</span>
+                        <span class="countdown-label">Minutos</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">0</span>
+                        <span class="countdown-label">Segundos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator">
+                <svg class="scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAVE THE DATE -->
+    <section class="save-the-date-section">
+        <div class="save-the-date-card">
+            <div class="save-label">Guarda la Fecha</div>
+            <h2>17 de Julio</h2>
+            <p class="save-subtitle">Una jornada llena de amor, alegría y momentos inolvidables</p>
+            <button class="btn-calendar" id="addToCalendar">
+                <span class="calendar-icon">📅</span> Agregar al Calendario
+            </button>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE CONFIRMACIÓN - FORMULARIO PRINCIPAL -->
+    <section class="confirmation-section" id="confirmationSection">
+        <div class="confirmation-container">
+            <div class="form-header fade-in">
+                <h2>Confirma tu Asistencia</h2>
+                <p class="form-subtitle">Una nueva historia comienza, y sería un honor celebrarla junto a ti</p>
+            </div>
+
+            <!-- Formulario con Glassmorphism -->
+            <div class="form-card glass-effect">
+                <form id="confirmationForm" class="confirmation-form">
+                    <!-- RUT -->
+                    <div class="form-group">
+                        <label for="rut" class="form-label">RUT</label>
+                        <div class="input-wrapper">
+                            <input
+                                type="text"
+                                id="rut"
+                                name="rut"
+                                class="form-input"
+                                placeholder="12345678-9"
+                                required
+                            >
+                            <span class="input-helper">Formato: 12345678-9</span>
+                        </div>
+                        <span class="error-message" id="rutError"></span>
+                    </div>
+
+                    <!-- Nombre Completo -->
+                    <div class="form-group">
+                        <label for="nombre" class="form-label">Nombre Completo</label>
+                        <input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            class="form-input"
+                            placeholder="Tu nombre completo"
+                            required
+                        >
+                        <span class="error-message" id="nombreError"></span>
+                    </div>
+
+                    <!-- Confirmación de Asistencia -->
+                    <div class="form-group">
+                        <label class="form-label">¿Confirmas tu participación?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="asistencia" value="si" class="radio-input" required>
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">Sí, asistiré</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="asistencia" value="no" class="radio-input" required>
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">No podré asistir</span>
+                            </label>
+                        </div>
+                        <span class="error-message" id="asistenciaError"></span>
+                    </div>
+
+                    <!-- Tipo de Asistencia (solo/acompañante) - visible solo si asiste -->
+                    <div class="form-group" id="tipoAsistenciaGroup" style="display: none;">
+                        <label class="form-label">¿Asistirás solo/a o con acompañante?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="tipoAsistencia" value="solo" class="radio-input" id="asisteSolo">
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">Asistiré solo/a</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="tipoAsistencia" value="con_acompanante" class="radio-input" id="asisteAcompanante">
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">Asistiré con acompañante</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Datos del Acompañante - visible solo si elige con acompañante -->
+                    <div class="form-group" id="acompananteGroup" style="display: none;">
+                        <label for="rutAcompanante" class="form-label">RUT del Acompañante</label>
+                        <div class="input-wrapper">
+                            <input
+                                type="text"
+                                id="rutAcompanante"
+                                name="rutAcompanante"
+                                class="form-input"
+                                placeholder="12345678-9"
+                            >
+                            <span class="input-helper">Formato: 12345678-9</span>
+                        </div>
+                        <span class="error-message" id="rutAcompananteError"></span>
+                    </div>
+
+                    <div class="form-group" id="nombreAcompananteGroup" style="display: none;">
+                        <label for="nombreAcompanante" class="form-label">Nombre Completo del Acompañante</label>
+                        <input
+                            type="text"
+                            id="nombreAcompanante"
+                            name="nombreAcompanante"
+                            class="form-input"
+                            placeholder="Nombre completo"
+                        >
+                        <span class="error-message" id="nombreAcompananteError"></span>
+                    </div>
+
+                    <!-- Restricción Alimentaria -->
+                    <div class="form-group">
+                        <label class="form-label">¿Tienes alguna restricción alimentaria?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="restriccion" value="si" class="radio-input" id="restriccionSi" required>
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">Sí</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="restriccion" value="no" class="radio-input" id="restriccionNo" required>
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">No</span>
+                            </label>
+                        </div>
+                        <span class="error-message" id="restriccionError"></span>
+                    </div>
+
+                    <!-- Detalle de Restricción (aparece solo si selecciona "Sí") -->
+                    <div class="form-group" id="detalleGroup" style="display: none;">
+                        <label for="detalleRestriccion" class="form-label">Detalla tu restricción</label>
+                        <div class="textarea-wrapper">
+                            <textarea
+                                id="detalleRestriccion"
+                                name="detalleRestriccion"
+                                class="form-textarea"
+                                placeholder="Ej: Vegetariano, alergia a frutos secos, sin gluten..."
+                                maxlength="300"
+                            ></textarea>
+                            <div class="char-counter">
+                                <span id="charCount">0</span> / 300
+                            </div>
+                        </div>
+                        <span class="error-message" id="detalleError"></span>
+                    </div>
+
+                    <!-- Botón Submit -->
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <span class="btn-text">Enviar Respuesta</span>
+                        <span class="btn-loader" id="btnLoader" style="display: none;">
+                            <svg class="spinner" viewBox="0 0 50 50">
+                                <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="3"/>
+                            </svg>
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Mensaje de éxito (aparece después de enviar) -->
+                <div class="success-message" id="successMessage" style="display: none;">
+                    <div class="success-icon">✓</div>
+                    <h3>¡Respuesta Enviada!</h3>
+                    <p>Gracias por ser parte de este momento tan importante para nosotros.</p>
+                    <p class="success-emoji">💕</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">Con amor,</p>
+            <p class="footer-names">Camila & Felipe</p>
+            <p class="footer-date">17 de Julio de 2026</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
