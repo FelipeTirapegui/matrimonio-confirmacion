@@ -1,3 +1,4 @@
+386
 /* ======================================
    CONFIGURACIÓN INICIAL
    ====================================== */
@@ -383,7 +384,7 @@ async function handleFormSubmit(form) {
             method: 'POST',
             mode: 'no-cors',
             headers: {
-                'Content-Type': 'text/plain'  // Cambiar a text/plain para evitar preflight CORS
+                'Content-Type': 'application/json'  // Cambiar a text/plain para evitar preflight CORS
             },
             body: JSON.stringify(data)
         });
