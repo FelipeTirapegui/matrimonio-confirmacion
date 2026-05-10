@@ -1,4 +1,3 @@
-386
 /* ======================================
    CONFIGURACIÓN INICIAL
    ====================================== */
@@ -7,7 +6,7 @@
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwjOfyhEzW1mIqgTOjm5WyUtqti3wCjF8UqpGsACHzJKed8CjpeRbJ6KaNoDPefIRSX/exec';
 
 // Fecha del matrimonio
-const WEDDING_DATE = new Date('2026-07-17T00:00:00').getTime();
+const WEDDING_DATE = new Date('2026-06-17T00:00:00').getTime();
 
 /* ======================================
    INICIALIZACIÓN
@@ -356,14 +355,14 @@ async function handleFormSubmit(form) {
     const formData = new FormData(form);
     const data = {
         timestamp: new Date().toISOString(),
-        rut: formData.get('rut'),
         nombre: formData.get('nombre'),
+        rut: formData.get('rut'),
         asistencia: formData.get('asistencia'),
-        tipoAsistencia: formData.get('tipoAsistencia') || '',
-        rutAcompanante: formData.get('rutAcompanante') || '',
-        nombreAcompanante: formData.get('nombreAcompanante') || '',
         restriccion: formData.get('restriccion'),
         detalleRestriccion: formData.get('detalleRestriccion') || '',
+        llevAcompanante: formData.get('tipoAsistencia') || '',
+        nombreAcompanante: formData.get('nombreAcompanante') || '',
+        rutAcompanante: formData.get('rutAcompanante') || '',
         userAgent: navigator.userAgent.substring(0, 100)
     };
 
@@ -384,7 +383,7 @@ async function handleFormSubmit(form) {
             method: 'POST',
             mode: 'no-cors',
             headers: {
-                'Content-Type': 'application/json'  // Cambiar a text/plain para evitar preflight CORS
+                'Content-Type': 'application/json'  // JSON correcto para Google Apps Script
             },
             body: JSON.stringify(data)
         });
@@ -442,15 +441,15 @@ document.addEventListener('DOMContentLoaded', () => {
 function addToCalendar() {
     // Crear evento en formato iCal
     const eventTitle = 'Matrimonio de Camila & Felipe';
-    const eventDate = '20260717'; // YYYYMMDD
+    const eventDate = '20260617'; // YYYYMMDD
     const eventTime = 'T123000'; // Hora de inicio: 12:30
     const eventDuration = 'PT5H'; // Duración: 5 horas
 
     const eventData = {
         title: eventTitle,
         description: 'Matrimonio de Camila & Felipe. Confirma tu asistencia en nuestra página.',
-        start: '2026-07-17T12:30:00',
-        end: '2026-07-17T17:30:00',
+        start: '2026-06-17T12:30:00',
+        end: '2026-06-17T17:30:00',
         location: 'Registro Civil Lo Barnechea & Mirador Gourmet, Santiago'
     };
 
